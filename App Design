@@ -1,0 +1,74 @@
+//Kaelyn Feng & Audrey Jensen
+
+onEvent("button_Kiwi", "click", function( ) {
+  setScreen("screen_Kiwi");
+  playSound("sound://category_instrumental/marimba_upscale_1.mp3");
+});
+onEvent("button_Kakapo", "click", function( ) {
+  setScreen("screen_Kakapo");
+  playSound("sound://category_instrumental/marimba_upscale_1.mp3");
+});
+onEvent("button_Dodo", "click", function( ) {
+  setScreen("screen_Dodo");
+  playSound("sound://category_instrumental/marimba_upscale_1.mp3");
+});
+onEvent("button_BackD","click", function( ) {
+  setScreen("screen_Home");
+  playSound("sound://category_instrumental/marimba_downscale_1.mp3");
+});
+onEvent("button_BackKi","click", function( ) {
+  setScreen("screen_Home");
+  playSound("sound://category_instrumental/marimba_downscale_1.mp3");
+});
+onEvent("button_BackKa","click", function( ) {
+  setScreen("screen_Home");
+  playSound("sound://category_instrumental/marimba_downscale_1.mp3");
+});
+onEvent("button_Quiz","click", function ( ) {
+  setScreen("screen_quiz1");
+});
+onEvent("button_1opt1", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_1opt2", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_1opt3", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_1opt4", "click", function( ) {
+  setScreen("screen_quiz2");
+  playSound("sound://category_achievements/lighthearted_bonus_objective_3.mp3");
+});
+onEvent("button_2opt1", "click", function( ) {
+  setScreen("screen_quiz3");
+  playSound("sound://category_achievements/lighthearted_bonus_objective_3.mp3");
+});
+onEvent("button_2opt2", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_2opt3", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_2opt4", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_3opt1", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_3opt2", "click", function( ) {
+  setScreen("screen_quizcongrats");
+  playSound("sound://category_instrumental/trumpet.mp3");
+});
+onEvent("button_3opt3", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_3opt4", "click", function( ) {
+  setScreen("screen_quizwrong");
+});
+onEvent("button_tryagain", "click", function ( ) {
+  setScreen("screen_quiz1");
+});
+onEvent("button_quizhome", "click", function ( ) {
+  setScreen("screen_Home");
+});
