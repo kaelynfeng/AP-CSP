@@ -1,0 +1,62 @@
+//Setting Up Lists
+var bookTitle = getColumn("New York Times Bestsellers 2011-2018", "Title");
+var bookYear = getColumn("New York Times Bestsellers 2011-2018", "Date");
+var bookAuthor = getColumn("New York Times Bestsellers 2011-2018", "Author");
+var bookOnList = getColumn("New York Times Bestsellers 2011-2018", "Weeks on list");
+var filteredBookList; 
+
+//Locates books in NYT bestseller list with same year and author as user selection
+//year {number}
+//author {string}
+function filter (year, author) {
+  filteredBookList = [];
+  
+  //Allows user to search with just author name
+  if (getText("dropdownYear") == "Any") {
+    year = "";
+  }
+  
+  //Main Filter
+  for (var i = 0; i < bookTitle.length-1; i++) {
+    if ((bookYear[i].substring(4, 7).indexOf(year) > -1) && (bookAuthor[i].indexOf(author)) > -1) {
+      appendItem(filteredBookList, bookTitle[i]);
+    }
+  }
+  
+  if (filteredBookList.length == 0) {
+    appendItem(filteredBookList, "No Books Found");
+  } else {
+  //Necessary otherwise screenResults won't update properly if only one book 
+  //onEvent input requires changing dropdown selection
+    insertItem(filteredBookList, 0, "Select One");
+  }
+}
+
+onEvent("buttonSearch", "click", function() {
+  filter(getText("dropdownYear"), getText("inputAuthor"));
+
+  setScreen("screenResults");
+  setProperty("dropdownBooks", "options", filteredBookList);
+});
+
+
+onEvent("dropdownBooks", "input", function() {
+  //Gets corresponding information for selected book to display
+  if (getText("dropdownBooks") == "Select One") {
+  } else {
+    setText("labelTitle", getText("dropdownBooks"));
+  }
+  
+  var selectBook = getText("dropdownBooks");
+  for (var i = 0; i < bookTitle.length-1; i++) {
+    if (selectBook == bookTitle[i]) {
+      setText("labelAuthor", "Author(s): " + bookAuthor[i]);
+      setText("labelDate", "Entered Best Seller List: " + bookYear[i]);
+      setText("labelOnList", "Weeks on List: " + bookOnList[i]);
+    }
+  }
+});
+
+onEvent("buttonAgain", "click", function() {
+  setScreen("screenHome");
+});
