@@ -1,0 +1,140 @@
+//Kaelyn Feng & Justin Ng
+//Used FILTER
+
+//Hide and show labels for images on home screen
+hideElement("milkyLabel");
+hideElement("earthLabel");
+hideElement("lightsLabel");
+hideElement("holeLabel");
+
+onEvent("milkyImage", "click", function(){
+  showElement("milkyLabel");
+});
+onEvent("earthImage", "click", function(){
+  showElement("earthLabel");
+});
+onEvent("lightsImage", "click", function(){
+  showElement("lightsLabel");
+});
+onEvent("holeImage", "click", function(){
+  showElement("holeLabel");
+});
+
+//Navigation to other screens from home screen
+onEvent("infoButton", "click", function(){
+  setScreen("infoScreen");
+});
+onEvent("calculatorButton", "click", function(){
+  setScreen("calculatorScreen");
+});
+
+//Back Buttons
+onEvent("infoBackButton", "click", function(){
+  setScreen("homeScreen");
+});
+onEvent("calcBackButton", "click", function(){
+  setScreen("homeScreen");
+});
+
+//INFO SCREEN STUFF
+//Defining variables for infoScreen
+var planetList = (getColumn ("Planets of our Solar System", "Planet"));
+var diameter = (getColumn("Planets of our Solar System", "Diameter"));
+var gravity = (getColumn("Planets of our Solar System", "Gravity"));
+var moons = (getColumn("Planets of our Solar System", "Number of moons"));
+var distance = (getColumn("Planets of our Solar System", "Distance from sun"));
+var picture = (getColumn("Planets of our Solar System", "Picture"));
+
+//Setting up filtered lists (FILITER)
+var filteredDiameter = [];
+var filteredGravity = [];
+var filteredMoons = [];
+var filteredDistance = [];
+var filteredPicture = [];
+
+
+//Filtering lists based on selected planet
+onEvent("searchButton", "click", function() {
+  filteredDiameter = [];
+  filteredGravity = [];
+  filteredMoons = [];
+  filteredDistance = [];
+  filteredPicture = [];
+  var selectedPlanet = getText("planetDropdown");
+  for (var i = 0; i < planetList.length; i++) {
+    var planet = planetList[i];
+    if (planet == selectedPlanet) {
+      appendItem(filteredDiameter, diameter[i]);
+      appendItem(filteredGravity, gravity[i]);
+      appendItem(filteredMoons, moons[i]);
+      appendItem(filteredDistance, distance[i]);
+      appendItem(filteredPicture, picture[i]);
+    
+    //Displaying the info  
+    setText("diameterInfo", filteredDiameter[0] + " km");
+    setText("gravityInfo", filteredGravity[0] + " m/s/s");
+    setText("moonsInfo", filteredMoons[0]);
+    setText("distanceInfo", filteredDistance[0] + " km");
+    //Displaying the image (of the planet)
+    setImageURL("planetImage", filteredPicture[0]);
+    
+    //Calling function
+    buttonCount ();
+    }
+  }
+});
+
+//CALCULATOR SCREEN STUFF
+//declaraing variables for calculating the value of weight
+var weight;
+var mass;
+var planetList = (getColumn ("Planets of our Solar System", "Planet"));
+var gravity = (getColumn("Planets of our Solar System", "Gravity"));
+//When calcButton is clicked, get the gravity from
+//the selected planet.
+onEvent("calcButton", "click", function( ) {
+  var filteredGravity = [];
+  filteredGravity = [];
+  var selectedPlanet = getText("planetDropdown2");
+  //From the planetList, get the gravity from the corresponding
+  //planet and calculate the mass on that planet by doing math.
+  for (var i = 0; i < planetList.length; i++) {
+    var planet = planetList[i];
+  /*Get the weight from the weightInput, then to find the mass,
+  divide the weight by 9.8 and then multiply the mass by gravity
+  from the gravity list.*/
+    if (planet == selectedPlanet) {
+      appendItem(filteredGravity, gravity[i]);
+      weight = getText("weightInput");
+      mass = weight/9.8;
+      mass = mass*gravity[i];
+    //Change the property of the weightOutput and 
+    //then round to the nearest whole number
+      setProperty("weightOutput", "text", "\n" + Math.round(mass) + " kg");
+      }
+  }
+});
+
+//Button Count Function
+//Tells the user how many planet's they've researched and gives them a message.
+var buttons = 0;
+
+//Function actived when button pressed (onEvent)
+function buttonCount () {
+//Increases value of var buttons by 1
+  buttons += 1;
+//Conditional that identifies which message too display in the countText label
+//Over or equal to 9
+  if (buttons >=9) {
+    setText("countText", "Congrats you've learned about " + buttons + " planets! \n NASA's on the phone as we speak!"); 
+  } else if (buttons >=5) {  
+//Less than 9 but greater than 4
+    setText("countText", "Congrats you've learned about " + buttons + " planets! \n You're a certified Planet Expert!");
+  } else if (buttons > 1) {
+//Less than 5 but greater than 1
+    setText("countText", "Congrats you've learned about " + buttons + " planets! \n Keep learning!");
+  } else {
+  
+    setText("countText", "Congrats you've learned about " + buttons + " planet! \n Try checking out some others.");
+  }
+}
